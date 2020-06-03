@@ -1,10 +1,10 @@
 const {Sequelize} = require('sequelize')
 
-const DATABASE = 'postgres'
-const USER = 'postgres'
-const PSWD = '967207'
+const DATABASE = process.env.DATABASE || 'postgres'
+const USER = process.env.USER || 'postgres'
+const PSWD = process.env.PSWD || '967207'
 const options = {
-    host: 'localhost',
+    host: process.env.HOST || 'localhost',
     dialect: 'postgres',
     schema: 'main',
     define: {
