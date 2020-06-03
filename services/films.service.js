@@ -34,7 +34,6 @@ function FilmsInformation(p_arr) {
 
         iterator++
         IDs.push(currObj.id)
-        console.log(arr[iterator])
     }
 
     return arr
