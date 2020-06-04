@@ -88,6 +88,47 @@ function ReformatedActersList(p_arr) {
     return acters
 }
 
+// TODO
+
+function ActersAtTopDirectors(p_arr) {
+    const acters = []
+    const DIRECTORS = []
+    const FILMS = []
+    let iterator = 0
+
+    for (let i = 0; i <= p_arr.length - 1; i++) {
+        const tmp = DIRECTORS.find(el => el === p_arr[i].director_id)
+
+        if (DIRECTORS.length > 0 && tmp !== undefined) continue
+        const currObj = p_arr[i]
+
+        acters.push({
+            id_diretor: currObj.director_id,
+            director_name: currObj.director_name,
+            director_avatar: currObj.director_avatar,
+            films: [{
+                id_film: currObj.id_film,
+                film_name: currObj.film_name,
+                acters: [{
+                    id_acter: currObj.id,
+                    acter_name: currObj.acter,
+                    acter_avatar: currObj.acter_avatar
+                }]
+            }],
+        })
+
+        for (let j = 0; j <= p_arr.length - 1; j++) {
+            if (i === j) continue
+            if (currObj.id) {}
+        }
+
+        iterator++
+        DIRECTORS.push(currObj.id_person)
+    }
+
+    return acters
+}
+
 module.exports  = {
     ActersInformation,
     ReformatedActersList
