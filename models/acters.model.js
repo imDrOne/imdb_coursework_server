@@ -24,6 +24,24 @@ const ActersAtTopDirectors = db.define('acters_from_tops_directors', {
     },
     role: {
         type: DataTypes.INTEGER
+    },
+    acter_avatar: {
+        type: DataTypes.STRING
+    },
+    id_film: {
+        type: DataTypes.INTEGER
+    },
+    film_name: {
+        type: DataTypes.STRING
+    },
+    director_id: {
+        type: DataTypes.INTEGER
+    },
+    director_name: {
+        type: DataTypes.STRING
+    },
+    director_avatar: {
+        type: DataTypes.STRING
     }
 })
 
