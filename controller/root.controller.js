@@ -4,7 +4,7 @@ const {ActersAtTopFilms, ActersAtTopDirectors, ActersAndAwards, ActersWithOscar}
 const BadCritics = require('../models/critics.model')
 
 /* Services */
-const {ReformatedActersList, ActersInformation} = require('../services/acters.service')
+const {ReformatedActersList, ActersInformation, ActersFromTopDirectors} = require('../services/acters.service')
 const {FilmsInformation} = require('../services/films.service')
 
 
@@ -22,7 +22,7 @@ exports.getRoot = async function (req, res) {
         const payload = {
             tops,
             actersAtTopFilms,
-            actersAtTopDirectors,
+            actersAtTopDirectors: ActersFromTopDirectors(actersAtTopDirectors),
             badCritics,
             actersInformation: ActersInformation(actersAndAwards),
             actersWithOscars: ReformatedActersList(actersWithOscars),

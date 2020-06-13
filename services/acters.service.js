@@ -90,46 +90,75 @@ function ReformatedActersList(p_arr) {
 
 // TODO
 
-function ActersAtTopDirectors(p_arr) {
-    const acters = []
-    const DIRECTORS = []
-    const FILMS = []
+function ActersFromTopDirectors(p_arr) {
     let iterator = 0
+    const
+        directors = [],
+        directorsIDs = [],
+        filmsIDs = []
 
-    for (let i = 0; i <= p_arr.length - 1; i++) {
-        const tmp = DIRECTORS.find(el => el === p_arr[i].director_id)
+    const srcArr = [...p_arr]
 
-        if (DIRECTORS.length > 0 && tmp !== undefined) continue
-        const currObj = p_arr[i]
+    for (const pArrElement of srcArr) {
+        const directorID = directorsIDs.find(el => el === pArrElement.director_id)
 
-        acters.push({
-            id_diretor: currObj.director_id,
-            director_name: currObj.director_name,
-            director_avatar: currObj.director_avatar,
-            films: [{
-                id_film: currObj.id_film,
-                film_name: currObj.film_name,
-                acters: [{
-                    id_acter: currObj.id,
-                    acter_name: currObj.acter,
-                    acter_avatar: currObj.acter_avatar
-                }]
-            }],
-        })
-
-        for (let j = 0; j <= p_arr.length - 1; j++) {
-            if (i === j) continue
-            if (currObj.id) {}
+        if (directorsIDs.length && directorID) {
+            continue
         }
 
+        directors.push({
+            directorId: pArrElement.director_id,
+            directorName: pArrElement.director_name,
+            directorAvatar: pArrElement.director_avatar,
+            films: []
+        })
+
+        directorsIDs.push(pArrElement.director_id)
+
+        directorsIDs.filter((value, index) => directorsIDs.indexOf(value) !== index)
+
         iterator++
-        DIRECTORS.push(currObj.id_person)
     }
 
-    return acters
+    iterator = 0
+    for (const director of directors) {
+        for (const srcArrElement of srcArr) {
+            const filmID = filmsIDs.find(value => value === srcArrElement.id_film)
+
+            if (filmID) continue
+            directors[iterator].films.push({
+                filmName: srcArrElement.film_name,
+                idFilm: srcArrElement.id_film,
+                acters: []
+            })
+            filmsIDs.push(srcArrElement.id_film)
+
+            filmsIDs.filter((value, index) => filmsIDs.indexOf(value) !== index)
+
+        }
+        iterator++
+    }
+
+    iterator = 0
+    for (const film of directors[iterator].films) {
+        for (const srcArrElement of srcArr) {
+            if (srcArrElement.id_film === film.idFilm) {
+                film.acters.push({
+                    id: srcArrElement.id,
+                    acter: srcArrElement.acter,
+                    role: srcArrElement.role,
+                    acter_avatar: srcArrElement.acter_avatar
+                })
+            }
+        }
+        iterator++
+    }
+
+    return directors
 }
 
 module.exports  = {
     ActersInformation,
-    ReformatedActersList
+    ReformatedActersList,
+    ActersFromTopDirectors
 }
